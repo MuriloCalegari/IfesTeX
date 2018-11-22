@@ -1,0 +1,115 @@
+    %% ---------------------------------------------------------------------------------------------- %%
+    % Os comandos abaixo ficam no início do documento, após o begin{document} na ordem que desejar
+    %% ---------------------------------------------------------------------------------------------- %%
+
+    % FICHA CATALOGRAFICA ==> Adicione com anexo
+    % \begin{fichacatalografica}
+    % \includepdf{fig_ficha_catalografica.pdf}
+    % \end{fichacatalografica}
+
+    % FOLHA DE APROVAÇÃO
+    \orientadori{Prof. Dr. Beltrano de Tal}{Instituto Federal do Espírito Santo}{Orientador}
+    \orientadorii{Profa. Dra. Beltrana de Tal}{Instituto Federal do Espírito Santo}{Coorientadora}
+    \examinadori{Profa. Dra. Fulana de Tal}{Instituto Federal do Espírito Santo}{Examinadora}
+    \examinadorii{Prof. Dr. Cicrano de Tal}{Instituto Federal do Espírito Santo}{Examinador}
+    \approvaldate{01}{Dezembro}{2018}
+
+    \begin{folhadeaprovacao}
+    \begin{center}
+        \centering
+        
+        {\bfseries\MakeUppercase\imprimirautor}
+        \vspace*{1.5cm}
+        
+        {\bfseries\MakeUppercase\imprimirtitulo}
+        
+        \hspace{.40\textwidth}
+        \begin{minipage}{9cm}
+        \footnotesize
+        \SingleSpacing
+        \imprimirpreambulo
+        \end{minipage}
+        
+        \vspace{1.0cm}  
+        \imprimirapprovaldate
+        \vspace{1.0cm}
+        
+        {\bfseries\MakeUppercase{comissão examinadora}}
+        \vspace{-0.5cm}
+        
+        \assinaturaorientador
+        \assinaturacoorientador
+        \assinaturaexaminadori
+        \assinaturaexaminadorii
+        \assinaturaexaminadoriii
+    \end{center}
+    \end{folhadeaprovacao}    
+
+    % DEDICATÓRIA
+    \begin{dedicatoria}
+    \vspace*{\fill}
+    \noindent
+
+    \begin{flushright}
+        \textit{
+        \textbf{Dedicatoria:} É um elemento opcional. Contém o oferecimento do trabalho adeterminada pessoa ou a pessoas (ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS, 2011b).} 
+    \end{flushright}
+
+    \vspace*{2.0cm}
+    \end{dedicatoria}
+
+    % AGRADECIMENTOS
+    \begin{agradecimentos}
+    É um elemento opcional. Localiza-se após a folha de aprovação e deve ser dirigido àqueles que realmente contribuíram, de maneira relevante,para a elaboração do trabalho. Deve-se utilizar uma linguagem simples (ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS, 2011b).
+    \end{agradecimentos}
+
+    % EPIGRAFE
+    \begin{epigrafe}
+    \vspace*{\fill}
+    \begin{center}
+        \textbf{Epigrafe:} É um elemento opcional. É uma citação relacionada ao assunto do trabalho desenvolvido, seguida da indicação de autoria (ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS, 2011b).   Deve-se seguir as regras do uso da citação NBR 10.520/2002. 
+    \end{center}
+    \end{epigrafe}
+
+    % LISTA DE FIGURAS
+    \pdfbookmark[0]{\listfigurename}{lof}
+    \listoffigures*
+    \cleardoublepage
+
+    % LISTA DE TABELAS
+    \pdfbookmark[0]{\listtablename}{lot}
+    \listoftables*
+    \cleardoublepage
+
+    % LISTA DE QUADROS
+    \pdfbookmark[0]{\listofquadrosname}{loq}
+    \listofquadros*
+    \cleardoublepage
+
+    % LISTA DE ABREVIATUAS E SIGLAS
+    \begin{siglas}
+        \item[Ifes] Instituto Federal do Espírito Santo
+    \end{siglas}
+
+    % LISTA DE SÍBOLOS
+    \begin{simbolos}
+        \item[$\lambda$] Letra grega labda
+    \end{simbolos}
+
+    %% ---------------------------------------------------------------------------------------------- %%
+    % Os comandos abaixo ficam ao final do documento, após o \postextual, na ordem que desejar
+    %% ---------------------------------------------------------------------------------------------- %%
+
+    % Apêndices
+    \begin{apendicesenv}
+        \input{apendices/ap1.tex}
+    \end{apendicesenv}
+
+    % Anexos
+    \begin{anexosenv}
+        \input{anexos/an1.tex}
+    \end{anexosenv}
+
+    % Índice Remissivo
+    \phantompart
+    \printindex

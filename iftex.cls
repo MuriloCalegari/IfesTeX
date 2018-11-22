@@ -34,8 +34,16 @@
 % --------------------------------------------------- %
 % PARÂMETROS INICIAIS DO ABNTEX2 %
 % --------------------------------------------------- %
+\RequirePackage{ifthen}
+
+\newboolean{IFEStimes}
+\setboolean{IFEStimes}{true}
+
+\DeclareOption{times}{\setboolean{IFEStimes}{true}}
+\DeclareOption{arial}{\setboolean{IFEStimes}{false}}
 
 % Repassa todos os parametros a classe abntex2
+
 \DeclareOption*{%
   \PassOptionsToClass{\CurrentOption}{abntex2}}
 
@@ -50,8 +58,6 @@
 \usepackage[utf8]{inputenc}   % Codificacao do documento
 \usepackage{lastpage}         % Para total de páginas
 
-\usepackage{mathptmx}         % Usa a fonte times
-
 \usepackage[T1]{fontenc}		  % Selecao de codigos de fonte
 \usepackage{lastpage}			    % Usado pela Ficha catalográfica
 \usepackage{indentfirst}		  % Indenta o primeiro parágrafo de cada seção
@@ -65,11 +71,37 @@
 \usepackage{parskip}			    % espaçamento entre os parágrafos
 \usepackage{xcolor}
 \usepackage{listings}
+
+\usepackage[absolute]{textpos}  % Para posicionamento absoluto
+
+\usepackage{lipsum}
+
+\usepackage{tocloft}
+
+
+
+%%% Patching the kernel \@sect command
+
 \usepackage[caption=false,font=normalsize]{subfig}
 
 %% Flush captions to left
 \hangcaption
 \captionstyle[\raggedright]{}
+
+% Numeração contínua das equações
+\counterwithout{equation}{chapter}
+
+% --------------------------------------------------- %
+% CONFIGURA O PARÂMETRO TIMES OU ARIAL %
+% --------------------------------------------------- %
+
+\ifthenelse{\boolean{IFEStimes}}{
+    \RequirePackage{lmodern}
+}{
+    \RequirePackage{helvet}
+    \renewcommand{\familydefault}{\sfdefault}
+    \renewcommand{\ABNTEXchapterfont}{\bfseries}
+}
 
 % --------------------------------------------------- %
 % CONFIGURAÇÕES DO PACOTE BACKREF %
@@ -82,11 +114,11 @@
 % Define os textos da citação
 \renewcommand*{\backrefalt}[4]{
 	\ifcase #1 %
-		Nenhuma citação no texto.%
+%		Nenhuma citação no texto.%
 	\or
 % 		Citado na página #2.%
 	\else
-		Citado #1 vezes nas páginas #2.%
+%		Citado #1 vezes nas páginas #2.%
 	\fi}%
 
 % --------------------------------------------------- %
@@ -96,6 +128,8 @@
 \setlrmarginsandblock{3cm}{2cm}{*}
 \setulmarginsandblock{3cm}{2cm}{*}
 \checkandfixthelayout
+
+
 
 % --------------------------------------------------- %
 % NOVOS COMANDOS %
@@ -113,22 +147,16 @@
 \renewcommand{\legend}[1]{\begin{flushleft}\footnotesize Fonte: #1\end{flushleft}}
 
 % Títulos 
-\renewcommand{\ABNTEXchapterfont}{\rmfamily\bfseries}
-
-\renewcommand*{\chapnumfont}{\normalfont\large\bfseries}
-\renewcommand*{\chaptitlefont}{\normalfont\large\bfseries}
-
-\setsecheadstyle{\normalfont\large\MakeUppercase}
-\renewcommand\cftsectionfont{\normalfont\normalsize\Capitalize}
-
-\setsubsecheadstyle{\normalfont\large\bfseries}
-\renewcommand\cftsubsectionfont{\normalfont\normalsize\bfseries}
-
-\setsubsubsecheadstyle{\normalfont\large}
-\renewcommand\cftsubsubsectionfont{\normalfont\normalsize}
-
-\setsubsubsubsecheadstyle{\normalfont\itshape}
-\renewcommand\cftparagraphfont{\normalfont\normalsize\itshape} 
+\renewcommand{\ABNTEXchapterfont}{\fontseries{b}\selectfont}
+\renewcommand{\ABNTEXchapterfontsize}{\normalsize}
+\renewcommand{\ABNTEXsectionfont}{\fontseries{m}\selectfont}
+\renewcommand{\ABNTEXsectionfontsize}{\normalsize}
+\renewcommand{\ABNTEXsubsectionfont}{\fontseries{b}\selectfont}
+\renewcommand{\ABNTEXsubsectionfontsize}{\normalsize}
+\renewcommand{\ABNTEXsubsubsectionfont}{\fontseries{m}\selectfont}
+\renewcommand{\ABNTEXsubsubsectionfontsize}{\normalsize}
+\renewcommand{\ABNTEXsubsubsubsectionfont}{\fontshape{it}\selectfont}
+\renewcommand{\ABNTEXsubsubsubsectionfontsize}{\normalsize}
 
 % Curso
 \providecommand{\imprimircurso}{}
@@ -179,64 +207,70 @@
 % Referencias
 \renewcommand{\bibname}{Referências}
 
+
 % --------------------------------------------------- %
 % CAPA %
 % --------------------------------------------------- %
 \renewcommand{\imprimircapa}{
-  \begin{capa}
+    \begin{capa}
     
-    \centering  	
-	{\MakeUppercase\imprimirinstituicao
-    \par
+    \centering \thispagestyle{empty} 	
+    {\MakeUppercase\imprimirinstituicao \\
     \MakeUppercase\imprimircurso}
-	\vspace*{3.0cm}
-
+    \vspace{\stretch{1}}
+    
     {\bfseries\MakeUppercase\imprimirautor}
-    \vspace*{3.5cm}
+    
+    \vspace{\stretch{1}}
+    
+        {\bfseries\MakeUppercase\imprimirtitulo}
+    
+    \vspace{11.5cm}
+    
+        
+    \imprimirlocal \\ \imprimirdata
+    
+    \end{capa}
 
-    {\bfseries\MakeUppercase\imprimirtitulo}
-    \vfill
-	    
-    \imprimirlocal\par\imprimirdata
-
-\end{capa}}
-
+}
 % --------------------------------------------------- %
 % FOLHA DE ROSTO %
 % --------------------------------------------------- %
 
 \renewcommand{\imprimirfolhaderosto}{
     \begin{folhaderosto}
-    \centering  	
-    \vspace*{2.0cm}
-
+    
+    \centering
     {\bfseries\MakeUppercase\imprimirautor}
-    \vspace*{3.5cm}
-
+    \vspace*{\stretch{1}}
+    
     {\bfseries\MakeUppercase\imprimirtitulo}
-    \vspace*{3.0cm}
     
-    \abntex@ifnotempty{\imprimirpreambulo}{%
-      \hspace{.40\textwidth}
-      \begin{minipage}{9cm}
-        \footnotesize 
-        \SingleSpacing
-        \imprimirpreambulo
-        \newline\newline
-        \imprimirorientador
-        \par
-        \ifthenelse{\equal{\imprimircoorientador}{}}
-        { 
-          % Não escreve nada se não tiver coorientador
-        }
-        {
-          \imprimircoorientador
-        }
-      \end{minipage}}%
-
-    \vfill
+    \begin{textblock*}{8cm}(\textwidth/2+3cm,14.5cm)
+        \abntex@ifnotempty{\imprimirpreambulo}{%
+            %\hspace{.40\textwidth}
+            \begin{minipage}{8cm}
+                \footnotesize 
+                \SingleSpacing
+                \imprimirpreambulo
+                \newline\newline
+                \imprimirorientador
+                \par
+                \ifthenelse{\equal{\imprimircoorientador}{}}
+                { 
+                % Não escreve nada se não tiver coorientador
+                }
+                {
+                \imprimircoorientador
+                }
+            \end{minipage}}%
+    \end{textblock*}
     
-    \imprimirlocal\par\imprimirdata
+    \vspace{\stretch{1}}
+    
+    \vspace{12.5cm}
+    
+    \imprimirlocal \\ \imprimirdata
     \end{folhaderosto}
 }
 
@@ -298,7 +332,7 @@
 % --------------------------------------------------- %
 
 \setlength{\parindent}{0cm}
-\setlength{\parskip}{15pt}
+\setlength{\parskip}{0.2cm}
 
 \renewcommand{\baselinestretch}{1.5} % Espaço entre linhas do texto
 \renewcommand{\arraystretch}{1.5} 	 % Espaço entre linhas da tabela
@@ -308,26 +342,25 @@
 \setlength{\cftbeforepartskip}{0pt}
 
 % Chapter
-\setlength{\afterchapskip}{15pt}
+\setlength{\afterchapskip}{0pt}
 % \setlength{\beforechapskip}{15pt}
 
 % Section
-\setlength{\aftersecskip}{15pt}
+%\setlength{\aftersecskip}{0.2cm}
 % \setlength{\beforesecskip}{0pt}
 
 % Subsection
-\setlength{\aftersubsecskip}{15pt}
+%\setlength{\aftersubsecskip}{0.2cm}
 % \setlength{\beforesubsecskip}{15pt}
 
 % Subsubsection
-\setlength{\aftersubsubsecskip}{15pt}
+%\setlength{\aftersubsubsecskip}{0.2cm}
 % \setlength{\beforesubsubsecskip}{15pt}
-
+   
 % --------------------------------------------------- %
 % CONFIGURAÇÕES DO SUMÁRIO %
 % --------------------------------------------------- %
-
-\renewcommand{\cftpartfont}{\bfseries\normalsize}
+ \renewcommand{\cftpartfont}{\bfseries\normalsize}
 % 
 \renewcommand{\cftchapterfont}{\bfseries\normalsize}
 \renewcommand{\cftchapterpagefont}{\cftchapterfont}
@@ -345,12 +378,10 @@
 \renewcommand{\cftparagraphpagefont}{\cftparagraphfont}
 % 
 \setlength{\cftbeforechapterskip}{0em}
-
-%% O código a seguir faz com que os títulos das sections fiquem em caixa alta no sumário
+ %% O código a seguir configura faz com que os títulos das sections fiquem em caixa alta no sumário
 % Agradecimentos ao usuário anônimo em:
 % https://tex.stackexchange.com/questions/399828/how-to-make-the-table-of-contents-section-title-upper-case-without-messing-with/399861
-
-\makeatletter
+ \makeatletter
 \let\oldcontentsline\contentsline
 \def\contentsline#1#2{%
 \expandafter\ifx\csname l@#1\endcsname\l@section
