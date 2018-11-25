@@ -342,20 +342,20 @@
 \setlength{\cftbeforepartskip}{0pt}
 
 % Chapter
-\setlength{\afterchapskip}{0pt}
+\setlength{\afterchapskip}{0cm}
 % \setlength{\beforechapskip}{15pt}
 
 % Section
-%\setlength{\aftersecskip}{0.2cm}
-% \setlength{\beforesecskip}{0pt}
+\setlength{\aftersecskip}{0.1cm}
+\setlength{\beforesecskip}{0.2cm}
 
 % Subsection
-%\setlength{\aftersubsecskip}{0.2cm}
-% \setlength{\beforesubsecskip}{15pt}
+\setlength{\aftersubsecskip}{0.2cm}
+\setlength{\beforesubsecskip}{0.2cm}
 
 % Subsubsection
-%\setlength{\aftersubsubsecskip}{0.2cm}
-% \setlength{\beforesubsubsecskip}{15pt}
+\setlength{\aftersubsubsecskip}{0.2cm}
+\setlength{\beforesubsubsecskip}{0.2cm}
    
 % --------------------------------------------------- %
 % CONFIGURAÇÕES DO SUMÁRIO %
