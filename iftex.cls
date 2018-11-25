@@ -342,11 +342,11 @@
 \setlength{\cftbeforepartskip}{0pt}
 
 % Chapter
-\setlength{\afterchapskip}{0cm}
+\setlength{\afterchapskip}{0pt}
 % \setlength{\beforechapskip}{15pt}
 
 % Section
-\setlength{\aftersecskip}{0.1cm}
+\setlength{\aftersecskip}{0.17cm}
 \setlength{\beforesecskip}{0.2cm}
 
 % Subsection
